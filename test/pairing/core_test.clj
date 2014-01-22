@@ -81,4 +81,8 @@
   (testing "two pairs, one extra"
     (is (= (pair-with-matching-prefs [alice bob carol dave mallory])
            [[[alice carol] [bob dave]]
-            [mallory]]))))
+            [mallory]])))
+  (testing "one pair, two unmatchable leftovers"
+    (is (= (pair-with-matching-prefs [alice bob carol mallory])
+           [[[alice, carol]],
+            [bob, mallory]]))))
