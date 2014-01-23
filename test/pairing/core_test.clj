@@ -66,7 +66,7 @@
            [[[alice bob]]
             [carol]]))))
 
-(deftest pair-with-matching-prefs-tests
+(deftest pair-matching-prefs-tests
   (testing "empty"
     (is (= (pair-with-matching-prefs [])
            [[] []])))

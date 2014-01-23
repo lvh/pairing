@@ -16,7 +16,7 @@
   (let [[pairs leftovers] (split-with #(= (count %) 2) (partition-all 2 subgroup))]
     [pairs (apply concat leftovers)]))
 
-(defn pair-with-matching-prefs
+(defn pair-matching-prefs
   "Pairs people from pool with matching prefs. Returns pairs and
   remaining ungrouped people."
   [pool]
