@@ -1,5 +1,4 @@
 (ns pairing.core-test
-  (:import java.util.Date)
   (:require [clojure.test :refer :all]
             [clj-time.core :refer (local-date)]
             [pairing.core :refer :all]))
