@@ -50,11 +50,13 @@
          ))
 
 (defn days-difference
-  "Gets the number of days between two dates."
+  "Gets the number of days between two dates.
+
+  The order of the dates does not matter.
+  "
   [day-one day-two]
-  (let [[start end] (sort [day-one day-two])]
-    (let [[start end] (map date-as-instant [start end])]
-      (t/in-days (t/interval start end)))))
+  (let [[start end] (map date-as-instant (sort [day-one day-two]))]
+    (t/in-days (t/interval start end))))
 
 (defn unmatched-days
   "Gets the number of unmatched days from the intervals that two users
