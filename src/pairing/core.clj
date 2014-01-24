@@ -47,7 +47,7 @@
          ))
 
 (defn days-difference
-  "Gets the number of days between two days."
+  "Gets the number of days between two dates."
   [day-one day-two]
   (let [[start end] (sort [day-one day-two])]
     (let [[start end] (map date-as-instant [start end])]
