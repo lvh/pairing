@@ -110,7 +110,9 @@
   (loop [pairs []
          leftovers []
          subgroups (vals (group-by reqs pool))]
-    (let [[new-pairs new-leftovers] (pair-subgroup-days (first subgroups))]
-      (recur (into pairs new-pairs)
-             (into leftovers new-leftovers)
-             (next subgroups)))))
+    (if (seq subgroups)
+      (let [[new-pairs new-leftovers] (pair-subgroup-days (first subgroups))]
+        (recur (into pairs new-pairs)
+               (into leftovers new-leftovers)
+               (next subgroups)))
+      [pairs leftovers])))
