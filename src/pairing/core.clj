@@ -82,20 +82,20 @@
   "Pairs people within a compatible subgroup by minimum number of unmatched days."
   [subgroup]
   (loop [candidate-pairs (apply concat (vals (group-by-unmatched-days subgroup)))
-         pairs []
+         pairs #{}
          paired #{}
          leftovers #{}]
     (if (seq candidate-pairs)
       (let [candidate (first candidate-pairs)
             already-paired (s/intersection paired candidate)]
         (case (count already-paired)
-          0 (recur (next candidate-pairs) ;; Both already paired.
+          2 (recur (next candidate-pairs) ;; Both already paired.
                    pairs paired ;; No new pairs.
                    leftovers) ;; No new leftovers.
           1 (recur (next candidate-pairs) ;; One already paired.
                    pairs paired ;; No new pairs.
                    (into leftovers already-paired)) ;; Add the new leftover.
-          2 (recur (next candidate-pairs) ;; Neither is paired! Yay.
+          0 (recur (next candidate-pairs) ;; Neither is paired! Yay.
                    (conj pairs candidate) ;; Add the new pair
                    (into paired candidate) ;; Log that these are paired.
                    (s/difference leftovers candidate)) ;; Un-leftover new pair.
@@ -107,8 +107,8 @@
   not incompatible.
   "
   [pool]
-  (loop [pairs []
-         leftovers []
+  (loop [pairs #{}
+         leftovers #{}
          subgroups (vals (group-by reqs pool))]
     (if (seq subgroups)
       (let [[new-pairs new-leftovers] (pair-subgroup-days (first subgroups))]

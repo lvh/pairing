@@ -132,8 +132,16 @@
     (is (= (group-by-unmatched-days [alice carol])
            {0 [#{alice carol}]}))))
 
+(deftest pair-subgroup-days-tests
+  (testing "two pairs with exact matches"
+    (is (= (pair-subgroup-days [alice bob carol dave])
+           [#{#{alice carol}
+              #{bob dave}}
+            #{}]))))
+
 (deftest pair-days-tests
   (testing "two pairs with exact matches"
     (is (= (pair-days [alice bob carol dave])
-           [[[alice carol] [bob dave]]
-            []]))))
+           [#{#{alice carol}
+              #{bob dave}}
+            #{}]))))
