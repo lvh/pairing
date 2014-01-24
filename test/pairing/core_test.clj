@@ -110,7 +110,7 @@
     (is (= (unmatched-days (at-conf alice) (at-conf bob))
            5)))
   (testing "same end day, five days difference in start day"
-    (is (= (unmatched-days (at-conf bob) (at-conf felix))
+    (is (= (unmatched-days (at-conf alice) (at-conf felix))
            5))))
 
 (deftest days-difference-tests
