@@ -86,19 +86,19 @@
          paired #{} ;; All paired users.
          leftovers #{}] ;; Unpaired users.
     (if (seq candidate-pairs)
-      (let [candidate (first candidate-pairs)
-            already-paired (s/intersection paired candidate)]
+      (let [candidate-pair (first candidate-pairs)
+            already-paired (s/intersection paired candidate-pair)]
         (case (count already-paired)
           2 (recur (next candidate-pairs) ;; Both already paired.
                    pairs paired ;; No new pairs.
                    leftovers) ;; No new leftovers.
           1 (recur (next candidate-pairs) ;; One already paired.
                    pairs paired ;; No new pairs.
-                   (into leftovers already-paired)) ;; Add the new leftover.
+                   (into leftovers (s/difference candidate-pair already-paired)))
           0 (recur (next candidate-pairs) ;; Neither is paired! Yay.
-                   (conj pairs candidate) ;; Add the new pair
-                   (into paired candidate) ;; Log that these are paired.
-                   (s/difference leftovers candidate)) ;; Un-leftover new pair.
+                   (conj pairs candidate-pair) ;; Add the new pair
+                   (into paired candidate-pair) ;; Log that these are paired.
+                   (s/difference leftovers candidate-pair)) ;; Un-leftover new pair.
           ))
       [pairs leftovers])))
 
