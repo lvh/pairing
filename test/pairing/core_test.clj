@@ -1,28 +1,37 @@
 (ns pairing.core-test
   (:require [clojure.test :refer :all]
-            [clj-time.core :refer (local-date)]
+            [clj-time.core :as t]
             [pairing.core :refer :all]))
+
+(def jan-10th (t/local-date 2014 01 10))
+(def jan-15th (t/local-date 2014 01 15))
+(def jan-20th (t/local-date 2014 01 20))
+(def jan-21st (t/local-date 2014 01 21))
 
 (def alice {:name "Alice"
             :gender :female
-            :start-date (local-date 2014 01 10)
-            :end-date (local-date 2014 01 20)})
+            :start-date jan-10th
+            :end-date jan-20th})
 (def bob {:name "Bob"
           :gender :male
-          :start-date (local-date 2014 01 10)
-          :end-date (local-date 2014 01 15)})
+          :start-date jan-10th
+          :end-date jan-15th})
 (def carol {:name "Carol"
             :gender :female
-            :start-date (local-date 2014 01 10)
-            :end-date (local-date 2014 01 20)})
+            :start-date jan-10th
+            :end-date jan-20th})
 (def dave {:name "Dave"
            :gender :male
-           :start-date (local-date 2014 01 10)
-           :end-date (local-date 2014 01 15)})
+           :start-date jan-10th
+           :end-date jan-15th})
+(def ewa {:name "Ewa"
+          :gender :female
+          :start-date jan-10th
+          :end-date jan-21st})
 (def mallory {:name "Mallory"
               :gender :male
-              :start-date (local-date 666 6 6)
-              :end-date (local-date 666 6 10)})
+              :start-date (t/local-date 666 6 6)
+              :end-date (t/local-date 666 6 10)})
 
 (deftest prefs-tests
   (testing "get preferences from a user"
