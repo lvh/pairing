@@ -1,5 +1,13 @@
 (ns pairing.core
-  [:require [clj-time.core :refer (local-date)]])
+  [:require [clj-time.core :as t]])
+
+(def reqs
+  "Gets the grouping requirements for a user (gender)."
+  (juxt :gender))
+
+(def at-conf
+  "Gets [start-date end date] for a user."
+  (juxt :start-date :end-date))
 
 (def prefs
   "Gets the grouping preferences for a user (gender, start-date, end-date)."
@@ -29,3 +37,24 @@
                (into all-leftovers new-leftovers)
                (next subgroups)))
       [all-pairs all-leftovers])))
+
+(defn date-as-instant
+  "Turns a date into a readable time instant (same day, noon Zulu)."
+  [date]
+  (apply t/date-time
+         (conj ((juxt t/year t/month t/day) date) ;; this day
+               12) ;; noon
+         ))
+
+(defn days-difference
+  "Gets the number of days between two days."
+  [day-one day-two]
+  (let [[start end] (sort [day-one day-two])]
+    (let [[start end] (map date-as-instant [start end])]
+      (t/in-days (t/interval start end)))))
+
+(defn unmatched-days
+  "Gets the number of unmatched days from the intervals that two users are staying."
+  [[start-one end-one] [start-two end-two]]
+  (+ (days-difference start-one start-two)
+     (days-difference end-one end-two)))

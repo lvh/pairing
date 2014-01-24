@@ -94,3 +94,25 @@
     (is (= (pair-matching-prefs [alice bob carol mallory])
            [[[alice, carol]],
             [bob, mallory]]))))
+
+(deftest unmatched-days-tests
+  (testing "perfect matches"
+    (is (= (unmatched-days (at-conf alice) (at-conf carol))
+           0)))
+  (testing "one day difference"
+    (is (= (unmatched-days (at-conf alice) (at-conf ewa))
+           1)))
+  (testing "five days difference"
+    (is (= (unmatched-days (at-conf alice) (at-conf bob))
+           5))))
+
+(deftest days-difference-tests
+  (testing "equal dates"
+    (is (= (days-difference jan-10th jan-10th)
+           0)))
+  (testing "different dates, first before second"
+    (is (= (days-difference jan-10th jan-15th)
+           5)))
+  (testing "different dates, second before first"
+    (is (= (days-difference jan-15th jan-10th)
+           5))))
