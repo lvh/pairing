@@ -144,4 +144,9 @@
     (is (= (pair-days [alice bob carol dave])
            [#{#{alice carol}
               #{bob dave}}
-            #{}]))))
+            #{}])))
+  (testing "two pairs plus one leftover with bad date incompatibility"
+    (is (= (pair-days [alice bob carol dave mallory])
+           [#{#{alice carol}
+              #{bob dave}}
+            #{mallory}]))))
