@@ -1,12 +1,14 @@
 (ns pairing.core
-  [:require [clj-time.core :as t]])
+  [:require [clj-time.core :as t]]
+  [:require [clojure.math.combinatorics :as c]])
 
 (def reqs
   "Gets the grouping requirements for a user (gender)."
   (juxt :gender))
 
 (def at-conf
-  "Gets [start-date end date] for a user."
+  "Gets [start-date end date] for a user, the dates when the user will
+  be arriving and leaving from the conference."
   (juxt :start-date :end-date))
 
 (def prefs
