@@ -1,6 +1,7 @@
 (ns pairing.core
   [:require [clj-time.core :as t]]
-  [:require [clojure.math.combinatorics :as c]])
+  [:require [clojure.math.combinatorics :as c]]
+  [:require [clojure.set :as s]])
 
 (def reqs
   "Gets the grouping requirements for a user (gender)."
@@ -62,3 +63,54 @@
   [[start-one end-one] [start-two end-two]]
   (+ (days-difference start-one start-two)
      (days-difference end-one end-two)))
+
+(defn unmatched-days-for-pair
+  "Gets the unmatched days for a single pair of users. See
+  unmatched-days.
+  "
+  [pair]
+  (apply unmatched-days (map at-conf pair)))
+
+(defn group-by-unmatched-days
+  "Groups all pairs of users by number of unmatched days, sorted by
+  increasing number of unmatched days."
+  [subgroup]
+  (let [possible-pairs (map set (c/combinations subgroup 2))]
+    (into (sorted-map) (group-by unmatched-days-for-pair possible-pairs))))
+
+(defn pair-subgroup-days
+  "Pairs people within a compatible subgroup by minimum number of unmatched days."
+  [subgroup]
+  (loop [candidate-pairs (apply concat (vals (group-by-unmatched-days subgroup)))
+         pairs []
+         paired #{}
+         leftovers #{}]
+    (if (seq candidate-pairs)
+      (let [candidate (first candidate-pairs)
+            already-paired (s/intersection paired candidate)]
+        (case (count already-paired)
+          0 (recur (next candidate-pairs) ;; Both already paired.
+                   pairs paired ;; no new pairs
+                   leftovers) ;; no new leftovers
+          1 (recur (next candidate-pairs) ;; One already paired.
+                   pairs paired ;; no new pairs
+                   (into leftovers already-paired)) ;; add the new leftover
+          2 (recur (next candidate-pairs) ;; Neither is paired! Yay.
+                   (conj pairs candidate) ;; add the new pair
+                   (into paired candidate) ;; log that these are paired
+                   (s/difference leftovers candidate)) ;; un-leftover new pairings
+          ))
+      [pairs leftovers])))
+
+(defn pair-days
+  "Pairs people from pool with the most overlapping days and who are
+  not incompatible.
+  "
+  [pool]
+  (loop [pairs []
+         leftovers []
+         subgroups (vals (group-by reqs pool))]
+    (let [[new-pairs new-leftovers] (pair-subgroup-days (first subgroups))]
+      (recur (into pairs new-pairs)
+             (into leftovers new-leftovers)
+             (next subgroups)))))

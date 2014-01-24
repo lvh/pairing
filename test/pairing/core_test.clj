@@ -123,3 +123,17 @@
   (testing "different dates, second before first"
     (is (= (days-difference jan-15th jan-10th)
            5))))
+
+(deftest group-by-unmatched-days-tests
+  (testing "empty"
+    (is (= (group-by-unmatched-days [])
+           {})))
+  (testing "one pair with exactly matching days"
+    (is (= (group-by-unmatched-days [alice carol])
+           {0 [#{alice carol}]}))))
+
+(deftest pair-days-tests
+  (testing "two pairs with exact matches"
+    (is (= (pair-days [alice bob carol dave])
+           [[[alice carol] [bob dave]]
+            []]))))
