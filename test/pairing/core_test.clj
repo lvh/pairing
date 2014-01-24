@@ -67,21 +67,21 @@
 
 (deftest pair-matching-prefs-tests
   (testing "empty"
-    (is (= (pair-with-matching-prefs [])
+    (is (= (pair-matching-prefs [])
            [[] []])))
   (testing "one pair, one extra"
-    (is (= (pair-with-matching-prefs [alice bob carol])
+    (is (= (pair-matching-prefs [alice bob carol])
            [[[alice carol]]
             [bob]])))
   (testing "two pairs"
-    (is (= (pair-with-matching-prefs [alice bob carol dave])
+    (is (= (pair-matching-prefs [alice bob carol dave])
            [[[alice carol] [bob dave]]
             []])))
   (testing "two pairs, one extra"
-    (is (= (pair-with-matching-prefs [alice bob carol dave mallory])
+    (is (= (pair-matching-prefs [alice bob carol dave mallory])
            [[[alice carol] [bob dave]]
             [mallory]])))
   (testing "one pair, two unmatchable leftovers"
-    (is (= (pair-with-matching-prefs [alice bob carol mallory])
+    (is (= (pair-matching-prefs [alice bob carol mallory])
            [[[alice, carol]],
             [bob, mallory]]))))
