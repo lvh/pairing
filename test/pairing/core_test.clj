@@ -28,6 +28,10 @@
           :gender :female
           :start-date jan-10th
           :end-date jan-21st})
+(def felix {:name "Fix-it Felix"
+            :gender :male
+            :start-date jan-15th
+            :end-date jan-20th})
 (def mallory {:name "Mallory"
               :gender :male
               :start-date (t/local-date 666 6 6)
@@ -99,11 +103,14 @@
   (testing "perfect matches"
     (is (= (unmatched-days (at-conf alice) (at-conf carol))
            0)))
-  (testing "one day difference"
+  (testing "same start day, one day difference in end day"
     (is (= (unmatched-days (at-conf alice) (at-conf ewa))
            1)))
-  (testing "five days difference"
+  (testing "same start day, five days difference in end day"
     (is (= (unmatched-days (at-conf alice) (at-conf bob))
+           5)))
+  (testing "same end day, five days difference in start day"
+    (is (= (unmatched-days (at-conf bob) (at-conf felix))
            5))))
 
 (deftest days-difference-tests
