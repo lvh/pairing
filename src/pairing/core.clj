@@ -56,7 +56,9 @@
       (t/in-days (t/interval start end)))))
 
 (defn unmatched-days
-  "Gets the number of unmatched days from the intervals that two users are staying."
+  "Gets the number of unmatched days from the intervals that two users
+  are staying. This is the number of days that are in one interval,
+  but not the other."
   [[start-one end-one] [start-two end-two]]
   (+ (days-difference start-one start-two)
      (days-difference end-one end-two)))
