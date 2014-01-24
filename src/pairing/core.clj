@@ -82,9 +82,9 @@
   "Pairs people within a compatible subgroup by minimum number of unmatched days."
   [subgroup]
   (loop [candidate-pairs (apply concat (vals (group-by-unmatched-days subgroup)))
-         pairs #{}
-         paired #{}
-         leftovers #{}]
+         pairs #{} ;; The pairs of users.
+         paired #{} ;; All paired users.
+         leftovers #{}] ;; Unpaired users.
     (if (seq candidate-pairs)
       (let [candidate (first candidate-pairs)
             already-paired (s/intersection paired candidate)]
