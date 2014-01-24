@@ -90,15 +90,15 @@
             already-paired (s/intersection paired candidate)]
         (case (count already-paired)
           0 (recur (next candidate-pairs) ;; Both already paired.
-                   pairs paired ;; no new pairs
-                   leftovers) ;; no new leftovers
+                   pairs paired ;; No new pairs.
+                   leftovers) ;; No new leftovers.
           1 (recur (next candidate-pairs) ;; One already paired.
-                   pairs paired ;; no new pairs
-                   (into leftovers already-paired)) ;; add the new leftover
+                   pairs paired ;; No new pairs.
+                   (into leftovers already-paired)) ;; Add the new leftover.
           2 (recur (next candidate-pairs) ;; Neither is paired! Yay.
-                   (conj pairs candidate) ;; add the new pair
-                   (into paired candidate) ;; log that these are paired
-                   (s/difference leftovers candidate)) ;; un-leftover new pairings
+                   (conj pairs candidate) ;; Add the new pair
+                   (into paired candidate) ;; Log that these are paired.
+                   (s/difference leftovers candidate)) ;; Un-leftover new pair.
           ))
       [pairs leftovers])))
 
