@@ -118,3 +118,35 @@
                (into leftovers new-leftovers)
                (next subgroups)))
       [pairs leftovers])))
+
+(def any
+  "First, except making more sense for sets."
+  first)
+
+(defn index-by
+  "Index coll by f."
+  [f coll]
+  (reduce (fn [index new]
+            (assoc index (f new) new)) {} coll))
+
+(defn pair-partners
+  "Pairs partners.
+
+  Pool should be a set of people.
+  "
+  [pool]
+  (let [by-partner-name (index-by :partner-name pool)]
+    (loop [pool pool
+           pairs #{}
+           leftovers #{}]
+      (let [person (any pool)
+            partner (get by-partner-name (:name person))]
+        (if (nil? person)
+          [pairs, leftovers] ;; we're done here, no more persons
+          (if (nil? partner)
+            (recur (disj pool person) ;; person does not have a partner
+                   pairs
+                   (conj leftovers person))
+            (recur (disj pool person partner) ;; person does have a partner
+                   (conj pairs #{person partner})
+                   leftovers)))))))

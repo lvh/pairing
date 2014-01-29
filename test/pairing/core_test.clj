@@ -150,3 +150,22 @@
            [#{#{alice carol}
               #{bob dave}}
             #{mallory}]))))
+
+(def alice-preffing-carol (assoc alice :partner-name "Carol"))
+(def carol-preffing-alice (assoc carol :partner-name "Alice"))
+(def bob-preffing-dave (assoc bob :partner-name "Dave"))
+(def dave-preffing-bob (assoc dave :partner-name "Bob"))
+
+(deftest pair-partners-tests
+  (testing "with no partner information, pool goes straight to leftovers"
+    (is (let [pool #{alice bob carol dave}]
+          (= (pair-partners pool)
+             [#{} pool]))))
+  (testing "with partner information, partners are matched up"
+    (is (= (pair-partners #{alice-preffing-carol
+                            carol-preffing-alice
+                            bob-preffing-dave
+                            dave-preffing-bob})
+           [#{#{alice-preffing-carol carol-preffing-alice}
+              #{bob-preffing-dave dave-preffing-bob}}
+            #{}]))))
