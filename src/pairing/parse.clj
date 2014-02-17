@@ -15,7 +15,7 @@
 
 (defn- parse-date
   [s]
-  (tf/parse (tf/formatter "yy-MM-dd") s))
+  (tf/parse-local-date (tf/formatter-local "yy-MM-dd") s))
 
 (def ^:private special-parse-rules
   "Functions for parsing specific values in CSV entries."
