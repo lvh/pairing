@@ -138,12 +138,12 @@
   Pool should be a set of people.
   "
   [pool]
-  (let [by-partner-name (index-by :partner-name pool)]
+  (let [by-partner-id (index-by :partner-id pool)]
     (loop [pool pool
            pairs #{}
            leftovers #{}]
       (let [person (any pool)
-            partner (get by-partner-name (:name person))]
+            partner (get by-partner-id (:id person))]
         (if (nil? person)
           [pairs, leftovers] ;; we're done here, no more persons
           (if (nil? partner)

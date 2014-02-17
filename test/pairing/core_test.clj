@@ -8,31 +8,38 @@
 (def jan-20th (t/local-date 2014 01 20))
 (def jan-21st (t/local-date 2014 01 21))
 
-(def alice {:name "Alice"
+(def alice {:id 1
+            :name "Alice"
             :gender :female
             :start-date jan-10th
             :end-date jan-20th})
-(def bob {:name "Bob"
+(def bob {:id 2
+          :name "Bob"
           :gender :male
           :start-date jan-10th
           :end-date jan-15th})
-(def carol {:name "Carol"
+(def carol {:id 3
+            :name "Carol"
             :gender :female
             :start-date jan-10th
             :end-date jan-20th})
-(def dave {:name "Dave"
+(def dave {:id 4
+           :name "Dave"
            :gender :male
            :start-date jan-10th
            :end-date jan-15th})
-(def ewa {:name "Ewa"
+(def ewa {:id 5
+          :name "Ewa"
           :gender :female
           :start-date jan-10th
           :end-date jan-21st})
-(def felix {:name "Fix-it Felix"
+(def felix {:id 6
+            :name "Fix-it Felix"
             :gender :male
             :start-date jan-15th
             :end-date jan-20th})
-(def mallory {:name "Mallory"
+(def mallory {:id 666
+              :name "Mallory"
               :gender :male
               :start-date (t/local-date 666 6 6)
               :end-date (t/local-date 666 6 10)})
@@ -151,10 +158,10 @@
               #{bob dave}}
             #{mallory}]))))
 
-(def alice-preffing-carol (assoc alice :partner-name "Carol"))
-(def carol-preffing-alice (assoc carol :partner-name "Alice"))
-(def bob-preffing-dave (assoc bob :partner-name "Dave"))
-(def dave-preffing-bob (assoc dave :partner-name "Bob"))
+(def alice-preffing-carol (assoc alice :partner-id 3))
+(def carol-preffing-alice (assoc carol :partner-id 1))
+(def bob-preffing-dave (assoc bob :partner-id 4))
+(def dave-preffing-bob (assoc dave :partner-id 2))
 
 (deftest pair-partners-tests
   (testing "with no partner information, pool goes straight to leftovers"
