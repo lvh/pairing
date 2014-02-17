@@ -1,6 +1,7 @@
 (ns pairing.parse
   [:require [clojure-csv.core :refer [parse-csv]]]
   [:require [clojure.string :as s]]
+  [:require [clojure.edn :as e]]
   [:require [clj-time.format :as tf]])
 
 (defn- keywordify
@@ -19,7 +20,9 @@
 
 (def ^:private special-parse-rules
   "Functions for parsing specific values in CSV entries."
-  {:check-in parse-date
+  {:id e/read-string
+   :partner-id e/read-string
+   :check-in parse-date
    :check-out parse-date})
 
 (defn- fix-entry
