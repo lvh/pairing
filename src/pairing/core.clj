@@ -8,16 +8,16 @@
   (juxt :gender))
 
 (def at-conf
-  "Gets [start-date end date] for a user, the dates when the user will
+  "Gets [check-in end date] for a user, the dates when the user will
   be arriving and leaving from the conference."
-  (juxt :start-date :end-date))
+  (juxt :check-in :check-out))
 
 (def prefs
-  "Gets the grouping preferences for a user (gender, start-date, end-date)."
-  (juxt :gender :start-date :end-date))
+  "Gets the grouping preferences for a user (gender, check-in, check-out)."
+  (juxt :gender :check-in :check-out))
 
 (defn group-by-prefs
-  "Groups the given pool of users by gender, start-date, end-date."
+  "Groups the given pool of users by gender, check-in, check-out."
   [pool]
   (group-by prefs pool))
 

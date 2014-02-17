@@ -11,43 +11,43 @@
 (def alice {:id 1
             :name "Alice"
             :gender :female
-            :start-date jan-10th
-            :end-date jan-20th})
+            :check-in jan-10th
+            :check-out jan-20th})
 (def bob {:id 2
           :name "Bob"
           :gender :male
-          :start-date jan-10th
-          :end-date jan-15th})
+          :check-in jan-10th
+          :check-out jan-15th})
 (def carol {:id 3
             :name "Carol"
             :gender :female
-            :start-date jan-10th
-            :end-date jan-20th})
+            :check-in jan-10th
+            :check-out jan-20th})
 (def dave {:id 4
            :name "Dave"
            :gender :male
-           :start-date jan-10th
-           :end-date jan-15th})
+           :check-in jan-10th
+           :check-out jan-15th})
 (def ewa {:id 5
           :name "Ewa"
           :gender :female
-          :start-date jan-10th
-          :end-date jan-21st})
+          :check-in jan-10th
+          :check-out jan-21st})
 (def felix {:id 6
             :name "Fix-it Felix"
             :gender :male
-            :start-date jan-15th
-            :end-date jan-20th})
+            :check-in jan-15th
+            :check-out jan-20th})
 (def mallory {:id 666
               :name "Mallory"
               :gender :male
-              :start-date (t/local-date 666 6 6)
-              :end-date (t/local-date 666 6 10)})
+              :check-in (t/local-date 666 6 6)
+              :check-out (t/local-date 666 6 10)})
 
 (deftest prefs-tests
   (testing "get preferences from a user"
     (is (= (prefs alice)
-           [:female (:start-date alice) (:end-date alice)]))))
+           [:female (:check-in alice) (:check-out alice)]))))
 
 (deftest group-by-prefs-tests
   (testing "empty pool"
