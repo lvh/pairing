@@ -27,11 +27,10 @@
   (loop [entry entry
          rem-rules special-parse-rules]
     (if (seq rem-rules)
-      (let [[k v] (first rem-rules)
-            f (get special-parse-rules k)]
+      (let [[k f] (first rem-rules)]
         (if (nil? f)
           (recur entry (rest rem-rules))
-          (recur (assoc entry k (f v))
+          (recur (assoc entry k (f (k entry)))
                  (rest rem-rules))))
       entry)))
 
