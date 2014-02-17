@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/math.combinatorics "0.0.7"]
                  [clj-time "0.6.0"]
-                 [difftest "1.3.8"]])
+                 [difftest "1.3.8"]
+                 [clojure-csv/clojure-csv "2.0.1"]])
