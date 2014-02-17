@@ -124,7 +124,10 @@
   first)
 
 (defn index-by
-  "Index coll by f."
+  "Index coll by f.
+
+  Like group-by except when you know keys will map to one value.
+  "
   [f coll]
   (reduce (fn [index new]
             (assoc index (f new) new)) {} coll))
