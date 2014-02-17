@@ -12,11 +12,11 @@
 (def ci-date (t/local-date 2014 4 7))
 (def co-date (t/local-date 2014 4 10))
 
-(deftest "parse empty csv"
-  (is (= (parse-pairing-csv header-line)
+(deftest parse-pairing-csv-tests
+  (testing "parses empty csv correctly"
+    (is (= (parse-pairing-csv header-line)
          #{})))
-
-(deftest "parse csv correctly"
-  (is (= (parse-pairing-csv csv-data)
-         #{{:id 1 :name "lvh" :check-in ci-date :check-out co-date :partner-id 2}
-           {:id 2 :name "ewa" :check-in ci-date :check-out co-date :partner-id 1}})))
+  (testing "parses csv with some lines in correctly"
+    (is (= (parse-pairing-csv csv-data)
+           #{{:id 1 :name "lvh" :check-in ci-date :check-out co-date :partner-id 2 :notes ""}
+             {:id 2 :name "ewa" :check-in ci-date :check-out co-date :partner-id 1 :notes ""}}))))
