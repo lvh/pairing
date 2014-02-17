@@ -44,5 +44,5 @@
   (let [[header-strs & rows] (parse-csv s)
         rows (discard-empty rows)
         header (map keywordify header-strs)
-        make-entry (partial zipmap header)]
+        make-entry (comp fix-entry (partial zipmap header))]
     (into #{} (map make-entry rows))))
