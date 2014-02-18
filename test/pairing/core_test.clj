@@ -176,3 +176,15 @@
            [#{#{alice-preffing-carol carol-preffing-alice}
               #{bob-preffing-dave dave-preffing-bob}}
             #{}]))))
+
+(deftest multi-pair-tests
+  (testing "multi-pair uses pairing algorithms in order correctly"
+    (is (= (multi-pair #{alice-preffing-carol
+                         carol-preffing-alice
+                         bob
+                         dave
+                         mallory}
+                       [pair-partners pair-days])
+           [#{#{alice-preffing-carol carol-preffing-alice}
+              #{bob dave}}
+            #{mallory}]))))
