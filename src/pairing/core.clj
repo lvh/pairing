@@ -156,7 +156,7 @@
 
 (defn multi-pair
   "Pairs the pool under the given pair-funcs, in order."
-  [pool pair-funcs]
+  [pair-funcs pool]
   (reduce (fn [[pairs leftovers] pair-func]
             (let [[new-pairs new-leftovers] (pair-func leftovers)]
               [(into pairs new-pairs) new-leftovers]))
