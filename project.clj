@@ -7,4 +7,5 @@
                  [org.clojure/math.combinatorics "0.0.7"]
                  [clj-time "0.6.0"]
                  [difftest "1.3.8"]
-                 [clojure-csv/clojure-csv "2.0.1"]])
+                 [clojure-csv/clojure-csv "2.0.1"]
+                 [org.clojure/core.incubator "0.1.3"]])
