@@ -1,5 +1,5 @@
-(ns pairing.parse-test
-  (:require [pairing.parse :refer :all]
+(ns pairing.csv-test
+  (:require [pairing.csv :refer :all]
             [clojure.test :refer :all]
             [clojure.string :refer [join]]
             [clj-time.core :as t]))

@@ -1,4 +1,4 @@
-(ns pairing.parse
+(ns pairing.csv
   [:require [clojure-csv.core :refer [parse-csv]]]
   [:require [clojure.string :as s]]
   [:require [clojure.edn :as e]]
